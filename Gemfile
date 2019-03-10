@@ -1,5 +1,5 @@
-env = ENV["RAILS_ENV"] || 'development'
-dbfile = File.expand_path("../config/database.yml", __FILE__)
+#env = ENV["RAILS_ENV"] || 'development'
+#dbfile = File.expand_path("../config/database.yml", __FILE__)
 
 #unless File.exists?(dbfile)
 #  raise "You need to configure config/database.yml first"
