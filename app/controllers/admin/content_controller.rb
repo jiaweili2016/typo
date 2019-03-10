@@ -27,6 +27,26 @@ class Admin::ContentController < Admin::BaseController
     new_or_edit
   end
 
+  def merge
+    if(current_user.admin?)
+        Category.find(params[:id])
+      if(params[:id1] != params[:merge_with])
+        if(!Article.find(params[:merge_with]).nil?)
+          @article = Article.find(params[:id1])
+          @article.merge_with(params[:merge_with])
+          flash[:notice] = _("Merge between Article: #{params[:id1]} and Article: #{params[:merge_with]} was successful")
+        else
+          flash[:error] = -("The Article ID you entered does not exist")
+        end
+      else
+        flash[:error] = _("You can not merge an article with itself")
+      end
+    else
+      flash[:error] = _("Error, you are not allowed to perform this action")
+    end
+    redirect_to :action => 'index'
+  end
+
   def edit
     @article = Article.find(params[:id])
     unless @article.access_by? current_user
